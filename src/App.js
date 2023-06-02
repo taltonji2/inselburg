@@ -1,24 +1,34 @@
 import logo from './logo.svg';
-import './App.css';
+import Card from './components/Card';
+import MoniesForm from './components/MoniesForm';
+import styled, {createGlobalStyle} from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
+ 
+
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+  }
+`
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalStyle/>
+      <Container>
+        <Card title='Monies' body='how much is in the piggie'/>
+      </Container>
+    </>
+ 
   );
 }
 
