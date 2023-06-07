@@ -11,7 +11,7 @@ const CardWrapper = styled.div`
     box-shadow: 0 2px 4px rgba(0,0,0,0.368);
     padding: 1rem;
     margin: 1rem;
-    width: ${props => props.width || cardwidth} ;
+    width: ${props => props.primary ? "37.08rem" : cardwidth};
     height: ${cardheight};
     max-width: 100%;
     max-height: calc((60rem / 37.08rem) * 100vw);
@@ -25,18 +25,18 @@ const Title = styled.h2`
     margin-top:0.625em;
 `
 
-const Body = styled.p`
+const Body = styled.div`
     font-size: large;
     display:inline-block;
     width:60%;
     margin-top:0.10em;
 `
 
-const Card = ({title, body, width}) => {
+const Card = ({title, body, primary}) => {
     return (
-        <CardWrapper width={width}>
+        <CardWrapper primary={primary}>
             <div><Title>{title}</Title></div>
-            <Body><div>{body}</div></Body>
+            <Body>{body}</Body>
         </CardWrapper>
     )
 }
