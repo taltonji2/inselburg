@@ -1,11 +1,10 @@
-import Card from './components/Card';
-import MoniesForm from './components/MoniesForm';
+
+import Monies from './components/Monies'
 import styled, {createGlobalStyle} from 'styled-components';
-import {BarChart} from "./components/charts/BarChart";
+
 import React, {useState} from 'react';
 
 const GlobalStyle = createGlobalStyle`
- 
 
   ::-webkit-scrollbar {
     width: 0;
@@ -27,8 +26,7 @@ function App() {
     <>
       <GlobalStyle/>
       <Container>
-        <Card title='Monies' body={<MoniesForm/>} />
-        <Card title='Graph' body={<BarChart/>} primary/>
+       <Monies/>
       </Container>
     </>
  
