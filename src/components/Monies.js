@@ -8,18 +8,34 @@ import MoniesForm from './MoniesForm';
 const Monies = () => {
     const [moniesData, setMoniesData] = useState({
         financials: {
-            income: 45000,
+            income: 0,
             state: '',
             zip: '',
             filingStatus: false
         },
     })
     
+    const handleStateUpdate = (key, value) => {
+        setMoniesData(prevState => ({
+        ...prevState,
+        [key]: value
+        }))
+    }
+
+    const handleInputChange = (event, key, nestedKey) => {
+        const value = event.target.value;
+        if (nestedKey) {
+          handleStateUpdate(key, { ...moniesData[key], [nestedKey]: value })
+          console.log(value)
+        } else {
+          handleStateUpdate(key, value)
+        }
+    }
 /* 
     Feature estimate take home pay
     Income
-    Location (zip)
-    filing Status
+    Location (state, zip)
+    Filing Status (single, married)
     
     Advanced
     401k contribution
@@ -35,14 +51,14 @@ const Monies = () => {
 */
     return (
         <>
-         <Card title='Monies' body={
-            <MoniesForm 
-                data={moniesData} 
-                setData={setMoniesData}
-            />
-          } 
+          <Card title='Monies' body={
+             <MoniesForm 
+                 formData={moniesData} 
+                 onChange={handleInputChange}
+             />
+           } 
           />
-         <Card title='Graph' body={<BarChart/>} primary/>
+          <Card title='Graph' body={<BarChart/>} primary/>
         </>
     )
 }

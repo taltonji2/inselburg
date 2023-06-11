@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { useState, useEffect } from "react"
+import { stateIncomeTax, federalIncomeTax } from "../data/incometax"
 
 
 const InputsContainer = styled.div`
@@ -8,12 +9,10 @@ const InputsContainer = styled.div`
     flex-direction: column;
     margin-bottom: 10px;
 `
-
 const TextInput = styled.input`
     display: flex;
     margin-bottom: .568rem;
 `
-
 const SelectInput = styled.select`
     display: flex;
     margin-bottom: .568rem;
@@ -21,28 +20,15 @@ const SelectInput = styled.select`
 const ButtonContainer = styled.div`
     margin-bottom: .45rem;
 `
-
 const Button = styled.button`
     margin-bottom: .668rem;
 `
-const MoniesForm = ({data, setData}) => {
+const MoniesForm = ({formData, onChange}) => {
+
     const [hideFinancials, setIsFinancials] = useState(false)
 
-    const handleStateUpdate = (key, value) => {
-        setData(prevState => ({
-        ...prevState,
-        [key]: value
-        }))
-    }
-
-    const handleInputChange = (event, key, nestedKey) => {
-        const value = event.target.value;
-        if (nestedKey) {
-          handleStateUpdate(key, { ...data[key], [nestedKey]: value })
-          console.log(value)
-        } else {
-          handleStateUpdate(key, value)
-        }
+    const updateFormData = (event, key, nestedKey) => {
+        onChange(event, key, nestedKey)
     }
 
     const handleFinancialsClicked = () => {
@@ -56,13 +42,13 @@ const MoniesForm = ({data, setData}) => {
     }
 
     return (
-        <form id='form'>
+        <form id='form'> 
             <InputsContainer>
                 <div>
                     <ButtonContainer>
                         <Button onClick={handleFinancialsClicked}><label>Financials</label></Button>
                         <div hidden={hideFinancials}>
-                        {Object.entries(data.financials).map(([key, value]) => (
+                        {Object.entries(formData.financials).map(([key, value]) => (
                             <div key={key}>
                                 <label>{splitCamelCase(key.charAt(0).toUpperCase() + key.slice(1))}</label>
                                 {
@@ -70,8 +56,9 @@ const MoniesForm = ({data, setData}) => {
                                     key={key}
                                     type="number"
                                     value={value}
+                                    step={1000}
                                     placeholder={value === 0 ? '' : `${key}`}
-                                    onChange={event => handleInputChange(event, 'financials', key)}
+                                    onChange={event => updateFormData(event, 'financials', key)}
                                     />
                                 }
                                 {
@@ -80,15 +67,15 @@ const MoniesForm = ({data, setData}) => {
                                     type="text"
                                     value={value}
                                     placeholder={value === '' ? `${key}` : value}
-                                    onChange={event => handleInputChange(event, 'financials', key)}
+                                    onChange={event => updateFormData(event, 'financials', key)}
                                     />
                                 }
                                 {
                                     (key == "filingStatus") &&
                                     <SelectInput 
                                         id="filingStatus" 
-                                        value={data.filingStatus} 
-                                        onChange={event => handleInputChange(event, 'financials', key)}
+                                        value={formData.filingStatus} 
+                                        onChange={event => updateFormData(event, 'financials', key)}
                                     >
                                         <option value={false}>Single</option>
                                         <option value={true}>Married</option>

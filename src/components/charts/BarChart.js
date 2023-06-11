@@ -51,7 +51,7 @@ export const data = {
   ],
 };
 
-export const BarChart = () => {
+export const BarChart = (formData) => {
   // @ts-ignore
   return (<div style={{ width: 575 }}><Bar options={options} data={data} /></div>) 
 }

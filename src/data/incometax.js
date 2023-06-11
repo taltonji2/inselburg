@@ -1,4 +1,4 @@
-const incometax = {
+export const stateIncomeTax = {
     alabama: {
         singleFiler: {
             rates: [2, 4, 5],
@@ -203,7 +203,7 @@ const incometax = {
     northDakota: {
         singleFiler: {
             rates: [1.1,2.04,2.27,2.64,2.9],
-            brackets: [0,41775,101,050,210825,458350]
+            brackets: [0,41775,101050,210825,458350]
         }
     },
     ohio: {
@@ -310,3 +310,10 @@ const incometax = {
         }
     }
 };
+
+export const federalIncomeTax = {
+    singleFiler: [11000, 44725, 95375, 182100, 231250, 578125, -1],
+    marriedJoint: [],
+    headOfHousehold: [],
+    rates: [10,12,22,24,32,35,37]
+}
