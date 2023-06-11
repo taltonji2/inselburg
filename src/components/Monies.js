@@ -1,20 +1,64 @@
 import React from "react"
-import styled from "styled-components"
-import { useState, useEffect } from "react"
-import {BarChart} from "./charts/BarChart";
+import { useState } from "react"
 import Card from './Card';
 import MoniesForm from './MoniesForm';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+  } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+const { faker } = require('@faker-js/faker');
 
 const Monies = () => {
     const [moniesData, setMoniesData] = useState({
         financials: {
-            income: 0,
-            state: '',
-            zip: '',
+            income: 1000,
+            state: 'NJ',
+            zip: '07030',
             filingStatus: false
         },
     })
-    
+
+    ChartJS.register(
+        CategoryScale,
+        LinearScale,
+        BarElement,
+        Title,
+        Tooltip,
+        Legend
+    )
+      
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+            position: 'top',
+            },
+            title: {
+            display: true,
+            text: 'Chart.js Bar Chart',
+            },
+        },
+    }
+        
+    const labels = ['2023'];
+      
+    const data = {
+        labels,
+        datasets: [
+          {
+            label: 'Dataset 1',
+            data: [moniesData.financials.income],
+            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+          }
+        ],
+    }
+      
     const handleStateUpdate = (key, value) => {
         setMoniesData(prevState => ({
         ...prevState,
@@ -31,24 +75,29 @@ const Monies = () => {
           handleStateUpdate(key, value)
         }
     }
-/* 
+
+    const updateGraph = () => {
+
+    }
+
+    /* 
     Feature estimate take home pay
     Income
     Location (state, zip)
     Filing Status (single, married)
-    
-    Advanced
-    401k contribution
-    IRA contribution
-    Itemized Deductions
-    Number of state personal exemptions
+        Advanced
+        401k contribution
+        IRA contribution
+        Itemized Deductions
+        Number of state personal exemptions
 
     https://smartasset.com/taxes/new-jersey-tax-calculator#hEziFgNLPe
 
     for tax bracket data
     https://taxfoundation.org/state-income-tax-rates-2022/ 
     
-*/
+    */
+
     return (
         <>
           <Card title='Monies' body={
@@ -58,7 +107,7 @@ const Monies = () => {
              />
            } 
           />
-          <Card title='Graph' body={<BarChart/>} primary/>
+          <Card title='Graph' body={<div style={{ width: 575 }}><Bar data={data} options={options} /></div>} primary/>
         </>
     )
 }

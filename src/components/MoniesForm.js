@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { stateIncomeTax, federalIncomeTax } from "../data/incometax"
 
 
@@ -48,11 +48,12 @@ const MoniesForm = ({formData, onChange}) => {
                     <ButtonContainer>
                         <Button onClick={handleFinancialsClicked}><label>Financials</label></Button>
                         <div hidden={hideFinancials}>
+                        {console.log(formData.financials)}
                         {Object.entries(formData.financials).map(([key, value]) => (
                             <div key={key}>
                                 <label>{splitCamelCase(key.charAt(0).toUpperCase() + key.slice(1))}</label>
                                 {
-                                    (key == "income") && <TextInput
+                                    (key === "income") && <TextInput
                                     key={key}
                                     type="number"
                                     value={value}
@@ -62,7 +63,7 @@ const MoniesForm = ({formData, onChange}) => {
                                     />
                                 }
                                 {
-                                    (key == "state" || key == "zip") && <TextInput
+                                    (key === "state" || key === "zip") && <TextInput
                                     key={key}
                                     type="text"
                                     value={value}
@@ -71,7 +72,7 @@ const MoniesForm = ({formData, onChange}) => {
                                     />
                                 }
                                 {
-                                    (key == "filingStatus") &&
+                                    (key === "filingStatus") &&
                                     <SelectInput 
                                         id="filingStatus" 
                                         value={formData.filingStatus} 
@@ -81,7 +82,6 @@ const MoniesForm = ({formData, onChange}) => {
                                         <option value={true}>Married</option>
                                     </SelectInput>
                                 }
-                                
                             </div>
                         ))}
                         </div>
