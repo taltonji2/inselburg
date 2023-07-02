@@ -309,10 +309,10 @@ export const stateIncomeTax = {
             brackets: [0,10000,40000,60000,250000,500000,1000000]
         }
     }
-};
+}
 
 export const federalIncomeTax = {
-    singleFiler: [11000, 44725, 95375, 182100, 231250, 578125, -1],
+    singleFilerBrackets: [11000, 44725, 95375, 182100, 231250, 578125, Math.abs(Math.max())],
     marriedJoint: [],
     headOfHousehold: [],
     rates: [10,12,22,24,32,35,37]

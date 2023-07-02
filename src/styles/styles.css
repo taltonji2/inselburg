@@ -1,0 +1,47 @@
+.container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 7px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .left-card {
+    width: 30%;
+    flex-shrink: 0; /* Prevent left card from shrinking */
+  }
+  
+  .right-card {
+    flex-grow: 1; /* Allow right card to take up remaining space */
+  }
+  
+  .nav-container {
+    display: flex;
+    flex-direction: row;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+
+  .nav-cell {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  @media (max-width: 756px) {
+    .container {
+      flex-direction: column; /* Change orientation to column on smaller screens */
+    }
+    
+    .card {
+      width: 100%; /* Set cards to full width on smaller screens */
+    }
+  }
+
+  ::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background-color: transparent;
+  }
