@@ -1,6 +1,9 @@
 .container {
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
   
   .card {
@@ -11,30 +14,90 @@
   }
   
   .left-card {
-    width: 30%;
+    width: 50%;
+    flex: 1;
     flex-shrink: 0; /* Prevent left card from shrinking */
   }
   
   .right-card {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 50%;
+    flex: 1;
     flex-grow: 1; /* Allow right card to take up remaining space */
   }
   
-  .nav-container {
-    display: flex;
-    flex-direction: row;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  canvas {
+    border: 1px dotted red;
+  }
+  
+  .chart-container {
+    position: relative;
+    margin: auto;
+    height: 80vh;
+    width: 50vw;
   }
 
-  .nav-cell {
-    padding-left: 10px;
-    padding-right: 10px;
+  .financial-results-grid {
+    display: grid;
+    grid-gap: 10px;
+    padding: 10px;
+    text-align: center;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    justify-content: center;
+    align-items: center;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+  }
+
+  .financial-results-grid-item {
+    background-color: #f0f0f0;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .financial-results-grid-item:nth-child(4 + 5) {
+    grid-column: span 3;
+  }
+
+  .financials-container{
+    padding-top: 10px;
+  }
+
+  .financials-label{
+    display: inline-block;
+     width: 100px;
+     text-align: right;
+  }
+
+  .financials-input{
+    margin-left: 17px;
+  }
+
+  .green {
+    color: #008000;
+  }
+
+  .yellow { 
+    color: #ffd500;
+  }
+
+  .red {
+    color: #ff0000;
+  }
+
+  .orange {
+    color: #ff8c00;
   }
 
   @media (max-width: 756px) {
     .container {
-      flex-direction: column; /* Change orientation to column on smaller screens */
+      flex-direction: column; 
     }
-    
+    .financial-results-container {
+      grid-template-columns: 1fr;
+    }
     .card {
       width: 100%; /* Set cards to full width on smaller screens */
     }

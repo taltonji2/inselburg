@@ -11,6 +11,7 @@ const MoniesForm = ({formData, onChange}) => {
     }, [formData.financials.income, formData.financials.state])
 
     const [isFinancials, setIsFinancials] = useState(false)
+    const [isExpenses, setIsExpenses] = useState(false)
 
     const updateFormData = (value, key, nestedKey) => {
         onChange(value, key, nestedKey)
@@ -19,7 +20,7 @@ const MoniesForm = ({formData, onChange}) => {
     const handleFinancialsClicked = () => {
         setTimeout(() => {
             setIsFinancials(!isFinancials)
-        }, 100)
+        }, 25)
     }
 
     const splitCamelCase = (word) => {
@@ -139,30 +140,32 @@ const MoniesForm = ({formData, onChange}) => {
         <div>
         {console.log("data", formData)}
         <button onClick={handleFinancialsClicked}><label>Financials</label></button>
-        <div hidden={isFinancials}>
+        <div hidden={isFinancials} className="financials-container">
         {Object.entries(formData.financials).map(([key, value]) => (
             <div key={key}>
                 {
                     (key === "income") && <div>
-                    <label>{splitCamelCase(key.charAt(0).toUpperCase() + key.slice(1))}</label>
+                    <label className="financials-label">{splitCamelCase(key.charAt(0).toUpperCase() + key.slice(1))}</label>
                     <input
-                    key={key}
-                    type="number"
-                    value={value}
-                    step={1000}
-                    placeholder={value === 0 ? '' : `${key}`}
-                    onChange={event => updateFormData(event.target.value, 'financials', key)}
+                        className="financials-input"
+                        key={key}
+                        type="number"
+                        value={value}
+                        step={1000}
+                        placeholder={value === 0 ? '' : `${key}`}
+                        onChange={event => updateFormData(parseInt(event.target.value), 'financials', key)}
                     />
                     </div>
                 }
                 {
                     (key === "state") &&
                     <div>
-                        <label>{splitCamelCase(key.charAt(0).toUpperCase() + key.slice(1))}</label>
+                        <label className="financials-label">{splitCamelCase(key.charAt(0).toUpperCase() + key.slice(1))}</label>
                         <select 
-                        id="state" 
-                        value={formData.state} 
-                        onChange={event => updateFormData(reverseCapitalization(event.target.value), 'financials', key)}
+                            className="financials-input"
+                            id="state" 
+                            value={formData.state} 
+                            onChange={event => updateFormData(reverseCapitalization(event.target.value), 'financials', key)}
                         >
                         {states.map((name) => (
                             <option key={name}>{firstLetterCapitalization(name)}</option>
@@ -172,19 +175,44 @@ const MoniesForm = ({formData, onChange}) => {
                 }
                 {
                     (key === "filingStatus") && 
-                    <div>
-                    <label>{splitCamelCase(key.charAt(0).toUpperCase() + key.slice(1))}</label>
-                    <select 
-                        id="filingStatus" 
-                        value={formData.filingStatus} 
-                        onChange={event => updateFormData(event.target.value, key)}
-                    >
-                        <option value={"single"}>Single</option>
-                        <option value={"married"}>Married</option>
-                    </select>
-                    </div>
+                    <>
+                        <br/>
+                        <div>
+                        <label className="financials-label">{splitCamelCase(key.charAt(0).toUpperCase() + key.slice(1))}</label>
+                        <select 
+                            className="financials-input"
+                            id="filingStatus" 
+                            value={formData.filingStatus} 
+                            onChange={event => updateFormData(event.target.value, key)}
+                        >
+                            <option value={"single"}>Single</option>
+                            <option value={"married"}>Married</option>
+                        </select>
+                        </div>
+                    </>
                 }
                 
+            </div>
+        ))}
+        <br/>
+        {Object.entries(formData.expenses).map(([key, value]) => (
+            <div key={key}>
+                <label className="financials-label">{splitCamelCase(key.charAt(0).toUpperCase() + key.slice(1))}</label>
+                <input
+                    className="financials-input"
+                    key={key}
+                    type="number"
+                    value={value}
+                    step={1}
+                    placeholder={
+                        value === 0 ? 0 : 
+                            key === 'food' ? 'yum' : 
+                            key === 'rent' ? 'not your parents' :
+                            key === 'mortgage' ? 'nice dude' : 
+                            key === 'autoLoan' ? 'vroom vroom' : 0
+                    }
+                    onChange={event => updateFormData(parseInt(event.target.value), 'expenses', key)}
+                    />
             </div>
         ))}
         </div>
